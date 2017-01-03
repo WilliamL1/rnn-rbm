@@ -24,9 +24,7 @@ def gibbs_sample(x, W, bv, bh, k):
         hk = sample(tf.sigmoid(tf.matmul(xk, W) + bh)) #Propagate the visible values to sample the hidden values
         xk = sample(tf.sigmoid(tf.matmul(hk, tf.transpose(W)) + bv)) #Propagate the hidden values to sample the visible values
         return count+1, k, xk
-
     #Run gibbs steps for k iterations
-    # ????
     ct = tf.constant(0) #counter
     [_, _, x_sample] = control_flow_ops.While(lambda count, num_iter, *args: count < num_iter,
                                          gibbs_step, [ct, tf.constant(k), x], 1, False)
